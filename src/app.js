@@ -11,15 +11,15 @@ var mixin    = require('./util/mixin'),
 //-----------------------------------------------------------------------------------------------
 
 var PublicMethods = {
-  is:                  function(state)       { return this._fsm.is(state)                                     },
-  can:                 function(transition)  { return this._fsm.can(transition)                               },
-  cannot:              function(transition)  { return this._fsm.cannot(transition)                            },
-  observe:             function()            { return this._fsm.observe(arguments)                            },
-  transitions:         function()            { return this._fsm.transitions()                                 },
-  allTransitions:      function()            { return this._fsm.allTransitions()                              },
-  allStates:           function()            { return this._fsm.allStates()                                   },
-  onInvalidTransition: function(t, from, to) { return this._fsm.onInvalidTransition(t, from, to)              },
-  onPendingTransition: function(t, from, to) { return this._fsm.onPendingTransition(t, from, to)              },
+  is:                  function(state)             { return this._fsm.is(state)                                     },
+  can:                 function(transition)        { return this._fsm.can(transition)                               },
+  cannot:              function(transition)        { return this._fsm.cannot(transition)                            },
+  observe:             function()                  { return this._fsm.observe(arguments)                            },
+  transitions:         function()                  { return this._fsm.transitions()                                 },
+  allTransitions:      function()                  { return this._fsm.allTransitions()                              },
+  allStates:           function()                  { return this._fsm.allStates()                                   },
+  onInvalidTransition: function(t, from, to, args) { return this._fsm.onInvalidTransition(t, from, to, args)  },
+  onPendingTransition: function(t, from, to, args) { return this._fsm.onPendingTransition(t, from, to, args)  },
 }
 
 var PublicProperties = {

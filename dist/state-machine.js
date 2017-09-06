@@ -431,10 +431,10 @@ mixin(JSM.prototype, {
         changed   = this.config.options.observeUnchangedState || (from !== to);
 
     if (!to)
-      return this.context.onInvalidTransition(transition, from, to);
+      return this.context.onInvalidTransition(transition, from, to, args);
 
     if (this.isPending())
-      return this.context.onPendingTransition(transition, from, to);
+      return this.context.onPendingTransition(transition, from, to, args);
 
     this.config.addState(to);  // might need to add this state if it's unknown (e.g. conditional transition or goto)
 
@@ -522,11 +522,11 @@ mixin(JSM.prototype, {
     }
   },
 
-  onInvalidTransition: function(transition, from, to) {
+  onInvalidTransition: function(transition, from, to, args) {
     throw new Exception("transition is invalid in current state", transition, from, to, this.state);
   },
 
-  onPendingTransition: function(transition, from, to) {
+  onPendingTransition: function(transition, from, to, args) {
     throw new Exception("transition is invalid while previous transition is still in progress", transition, from, to, this.state);
   }
 
@@ -557,15 +557,15 @@ var mixin    = __webpack_require__(0),
 //-----------------------------------------------------------------------------------------------
 
 var PublicMethods = {
-  is:                  function(state)       { return this._fsm.is(state)                                     },
-  can:                 function(transition)  { return this._fsm.can(transition)                               },
-  cannot:              function(transition)  { return this._fsm.cannot(transition)                            },
-  observe:             function()            { return this._fsm.observe(arguments)                            },
-  transitions:         function()            { return this._fsm.transitions()                                 },
-  allTransitions:      function()            { return this._fsm.allTransitions()                              },
-  allStates:           function()            { return this._fsm.allStates()                                   },
-  onInvalidTransition: function(t, from, to) { return this._fsm.onInvalidTransition(t, from, to)              },
-  onPendingTransition: function(t, from, to) { return this._fsm.onPendingTransition(t, from, to)              },
+  is:                  function(state)             { return this._fsm.is(state)                                     },
+  can:                 function(transition)        { return this._fsm.can(transition)                               },
+  cannot:              function(transition)        { return this._fsm.cannot(transition)                            },
+  observe:             function()                  { return this._fsm.observe(arguments)                            },
+  transitions:         function()                  { return this._fsm.transitions()                                 },
+  allTransitions:      function()                  { return this._fsm.allTransitions()                              },
+  allStates:           function()                  { return this._fsm.allStates()                                   },
+  onInvalidTransition: function(t, from, to, args) { return this._fsm.onInvalidTransition(t, from, to, args)  },
+  onPendingTransition: function(t, from, to, args) { return this._fsm.onPendingTransition(t, from, to, args)  },
 }
 
 var PublicProperties = {
