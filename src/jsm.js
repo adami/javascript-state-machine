@@ -74,10 +74,10 @@ mixin(JSM.prototype, {
         changed   = this.config.options.observeUnchangedState || (from !== to);
 
     if (!to)
-      return this.context.onInvalidTransition(transition, from, to);
+      return this.context.onInvalidTransition(transition, from, to, args);
 
     if (this.isPending())
-      return this.context.onPendingTransition(transition, from, to);
+      return this.context.onPendingTransition(transition, from, to, args);
 
     this.config.addState(to);  // might need to add this state if it's unknown (e.g. conditional transition or goto)
 
@@ -165,11 +165,11 @@ mixin(JSM.prototype, {
     }
   },
 
-  onInvalidTransition: function(transition, from, to) {
+  onInvalidTransition: function(transition, from, to, args) {
     throw new Exception("transition is invalid in current state", transition, from, to, this.state);
   },
 
-  onPendingTransition: function(transition, from, to) {
+  onPendingTransition: function(transition, from, to, args) {
     throw new Exception("transition is invalid while previous transition is still in progress", transition, from, to, this.state);
   }
 
